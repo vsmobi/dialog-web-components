@@ -14,7 +14,7 @@ import styles from '../SidebarRecentItem.css';
 export type Props = {
   className?: string,
   content: MessageContentText,
-  attachment?: MessageAttachment,
+  attachment?: ?MessageAttachment,
   emojiSize: number,
   decorators?: typeof decorators
 };
