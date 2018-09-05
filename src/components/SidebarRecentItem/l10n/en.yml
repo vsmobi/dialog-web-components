@@ -14,3 +14,4 @@ document: Document
 location: Location
 unknown: ""
 unsupported: ""
+forwarded: "Forwarded message"
