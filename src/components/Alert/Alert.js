@@ -7,35 +7,28 @@ import type { ColorTheme } from '@dlghq/dialog-types';
 import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import { Text } from '@dlghq/react-l10n';
-import modalStyles from '../Modal/Modal.css';
-import styles from './Confirm.css';
 import Modal from '../Modal/Modal';
 import ModalBody from '../Modal/ModalBody';
 import ModalFooter from '../Modal/ModalFooter';
 import Button from '../Button/Button';
 import HotKeys from '../HotKeys/HotKeys';
+import modalStyles from '../Modal/Modal.css';
+import styles from '../Confirm/Confirm.css';
 
 export type Props = {
   message: string,
   submit: string,
-  cancel: string,
   theme: ColorTheme,
-  action: mixed,
-  onSubmit: (action: mixed) => void,
-  onClose: () => mixed
+  onSubmit: () => void
 };
 
-class Confirm extends PureComponent<Props> {
+class Alert extends PureComponent<Props> {
   static defaultProps = {
     theme: 'default'
   };
 
-  handleSuccess = (): void => {
-    this.props.onSubmit(this.props.action);
-  };
-
-  handleCancel = (): void => {
-    this.props.onClose();
+  handleSubmit = (): void => {
+    this.props.onSubmit();
   };
 
   handleHotkey = (hotkey: string, event: KeyboardEvent): void => {
@@ -43,10 +36,8 @@ class Confirm extends PureComponent<Props> {
     event.stopPropagation();
     switch (hotkey) {
       case 'Enter':
-        this.handleSuccess();
-        break;
       case 'Escape':
-        this.handleCancel();
+        this.handleSubmit();
         break;
       default:
         // do nothing
@@ -65,22 +56,12 @@ class Confirm extends PureComponent<Props> {
             </ModalBody>
             <ModalFooter className={styles.footer}>
               <Button
-                theme="primary"
-                size="small"
-                className={styles.button}
-                view="outline"
-                onClick={this.handleCancel}
-                id="confirm_cancel_button"
-              >
-                <Text id={this.props.cancel} />
-              </Button>
-              <Button
-                className={styles.button}
-                view="outline"
-                size="small"
                 theme={this.props.theme}
-                onClick={this.handleSuccess}
-                id="confirm_success_button"
+                size="small"
+                className={styles.button}
+                view="outline"
+                onClick={this.handleSubmit}
+                id="alert_submit_button"
               >
                 <Text id={this.props.submit} />
               </Button>
@@ -92,4 +73,4 @@ class Confirm extends PureComponent<Props> {
   }
 }
 
-export default Confirm;
+export default Alert;
