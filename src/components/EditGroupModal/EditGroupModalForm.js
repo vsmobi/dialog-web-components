@@ -193,6 +193,7 @@ class EditGroupModalForm extends PureComponent<Props, State> {
             name="about"
             status={about.error ? 'error' : 'normal'}
             onChange={this.props.onChange}
+            maxLength={3000}
             label={`CreateNewModal.${group.type}.info.description.label`}
             placeholder={`CreateNewModal.${group.type}.info.description.placeholder`}
             type="textarea"

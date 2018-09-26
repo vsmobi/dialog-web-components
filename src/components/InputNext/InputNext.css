@@ -35,6 +35,10 @@
   --input-next-description-font-family: var(--input-next-font-family);
   --input-next-description-font-size: var(--default-font-size-small);
   --input-next-description-line-height: 1.3;
+  --input-next-length-font-family: var(--default-font-family);
+  --input-next-length-color: #676c75;
+  --input-next-length-font-size: var(--default-font-size-small);
+  --input-next-length-padding: var(--default-padding-small);
 }
 
 /* Reset */
@@ -246,6 +250,7 @@
   background-color: var(--input-next-background-color);
   border-radius: var(--input-next-border-radius);
   box-shadow: inset 0 0 0 1px var(--input-next-border-color);
+  position: relative;
 
   &:hover {
     box-shadow: inset 0 0 0 1px var(--input-next-hover-border-color);
@@ -299,4 +304,13 @@
     background-color: color(var(--input-next-text-color) alpha(2%));
     color: var(--input-next-text-color) !important;
   }
+}
+
+.lengthLimitCounter {
+  position: absolute;
+  right: var(--input-next-length-padding);
+  bottom: var(--input-next-length-padding);
+  color: var(--input-next-length-color);
+  font-family: var(--input-next-length-font-family);
+  font-size: var(--input-next-length-font-size);
 }
