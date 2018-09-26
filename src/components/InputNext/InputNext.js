@@ -214,7 +214,7 @@ class InputNext extends PureComponent<Props, State> {
       <div
         className={styles.lengthLimitCounter}
       >
-        {`${length} / ${maxLength}`}
+        {`${length} ${maxLength ? `/ ${maxLength}` : ''}`}
       </div>
     );
   }
