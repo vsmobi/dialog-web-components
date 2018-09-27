@@ -29,7 +29,8 @@ export type Props = {
   onChange: () => void,
   onSubmit: () => void,
   onAvatarChange: (avatar: File) => void,
-  onAvatarRemove: () => void
+  onAvatarRemove: () => void,
+  groupAboutMaxLength?: number
 };
 
 export type State = {
