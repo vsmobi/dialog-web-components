@@ -39,7 +39,7 @@ class TextMessagePreview extends PureComponent<Props> {
       );
     }
 
-    if (content.text === '' && attachment !== null) {
+    if (content.text === '' && attachment) {
       if (attachment.type === 'forward') {
         return (
           <Text className={styles.highlight} id="SidebarRecentItem.forwarded" />
