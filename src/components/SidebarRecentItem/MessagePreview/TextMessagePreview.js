@@ -40,9 +40,15 @@ class TextMessagePreview extends PureComponent<Props> {
     }
 
     if (content.text === '' && attachment !== null) {
-      return (
-        <Text className={styles.highlight} id="SidebarRecentItem.forwarded" />
-      );
+      if (attachment.type === 'forward') {
+        return (
+          <Text className={styles.highlight} id="SidebarRecentItem.forwarded" />
+        );
+      } else if (attachment.type === 'reply') {
+        return (
+          <Text className={styles.highlight} id="SidebarRecentItem.reply" />
+        );
+      }
     }
 
     return (
