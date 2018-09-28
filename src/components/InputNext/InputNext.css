@@ -307,10 +307,21 @@
 }
 
 .lengthLimitCounter {
-  position: absolute;
-  right: var(--input-next-length-padding);
-  bottom: var(--input-next-length-padding);
+  float: right;
+  line-height: 1.4;
+  display: inline-block;
   color: var(--input-next-length-color);
   font-family: var(--input-next-length-font-family);
   font-size: var(--input-next-length-font-size);
+
+
+  @apply --no-select;
+  line-height: 1.4;
+  display: inline-block;
+  margin-bottom: calc(var(--default-padding-small) / 2);
+  cursor: pointer;
+
+  & small {
+    color: color(var(--input-next-length-color) alpha(60%));
+  }
 }

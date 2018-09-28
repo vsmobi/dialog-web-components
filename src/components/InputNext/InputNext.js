@@ -297,11 +297,11 @@ class InputNext extends PureComponent<Props, State> {
     return (
       <div className={className}>
         {this.renderLabel()}
+        {this.renderLengthLimitCounter()}
         {this.renderDescription()}
         <div className={wrapperClassName}>
           {this.renderPrefix()}
           {this.renderInput()}
-          {this.renderLengthLimitCounter()}
         </div>
         {this.renderHint()}
       </div>
