@@ -30,7 +30,7 @@ export type Props = {
   onSubmit: () => void,
   onAvatarChange: (avatar: File) => void,
   onAvatarRemove: () => void,
-  groupAboutMaxLength?: number
+  aboutMaxLength?: number
 };
 
 export type State = {
@@ -164,7 +164,7 @@ class EditGroupModalForm extends PureComponent<Props, State> {
   }
 
   render() {
-    const { group, about, name, vertical, id, groupAboutMaxLength } = this.props;
+    const { group, about, name, vertical, id, aboutMaxLength } = this.props;
     const className = classNames(
       styles.info,
       {
@@ -195,7 +195,7 @@ class EditGroupModalForm extends PureComponent<Props, State> {
             name="about"
             status={about.error ? 'error' : 'normal'}
             onChange={this.props.onChange}
-            maxLength={groupAboutMaxLength}
+            maxLength={aboutMaxLength}
             label={`CreateNewModal.${group.type}.info.description.label`}
             placeholder={`CreateNewModal.${group.type}.info.description.placeholder`}
             type="textarea"
