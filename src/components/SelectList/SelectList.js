@@ -44,6 +44,7 @@ class SelectList<T> extends PureComponent<Props<T>, void> {
       )
     );
     if (this.props.isRemoteSearch) {
+      // $FlowFixMe
       this.props.setQuery('');
     }
   };

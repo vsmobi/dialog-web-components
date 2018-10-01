@@ -47,6 +47,7 @@ class ContactSelectorInput extends PureComponent<Props> {
   handleChange = (event: $FlowIssue): void => {
     if (this.props.isRemoteSearch) {
       const query = event.target.value;
+      // $FlowFixMe
       this.props.setQuery(query);
       this.searchRemoteContacts(query);
     } else {
@@ -57,6 +58,7 @@ class ContactSelectorInput extends PureComponent<Props> {
   handleKeyDown = (event: SyntheticKeyboardEvent<>): void => {
     let nextSelector = this.props.selector;
     if (this.props.isRemoteSearch) {
+      // $FlowFixMe
       nextSelector = this.props.selector.setQuery(this.props.query);
     }
     this.props.onChange(nextSelector.handleKeyboardEvent(event));
@@ -72,7 +74,8 @@ class ContactSelectorInput extends PureComponent<Props> {
   };
 
   searchRemoteContacts = (query: string): void => {
-    this.props.updateRemotePeersInSelector(this.props.selector, query);
+      // $FlowFixMe
+      this.props.updateRemotePeersInSelector(this.props.selector, query);
   };
 
   autoFocus(): void {
