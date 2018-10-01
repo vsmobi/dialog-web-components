@@ -74,8 +74,8 @@ class ContactSelectorInput extends PureComponent<Props> {
   };
 
   searchRemoteContacts = (query: string): void => {
-      // $FlowFixMe
-      this.props.updateRemotePeersInSelector(this.props.selector, query);
+    // $FlowFixMe
+    this.props.updateRemotePeersInSelector(this.props.selector, query);
   };
 
   autoFocus(): void {
