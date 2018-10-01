@@ -3,11 +3,11 @@
  * @flow
  */
 
-import type { PeerInfo } from '@dlghq/dialog-types';
-import type { SelectorState } from '../../entities';
-
 import React, { PureComponent } from 'react';
+import { debounce } from 'lodash';
+import type { PeerInfo } from '@dlghq/dialog-types';
 import { LocalizationContextType } from '@dlghq/react-l10n';
+import type { SelectorState } from '../../entities';
 import classNames from 'classnames';
 import ContactSelectorChip from './ContactSelectorChip';
 import styles from './ContactSelector.css';
@@ -16,7 +16,11 @@ export type Props = {
   className?: string,
   autoFocus: boolean,
   selector: SelectorState<PeerInfo>,
-  onChange: (selector: SelectorState<PeerInfo>) => mixed
+  onChange: (selector: SelectorState<PeerInfo>) => mixed,
+  updateRemotePeersInSelector?: (selector: SelectorState<PeerInfo>, query: string) => mixed,
+  setQuery?: (query: string) => mixed,
+  query?: string,
+  isRemoteSearch?: boolean
 };
 
 class ContactSelectorInput extends PureComponent<Props> {
@@ -25,6 +29,12 @@ class ContactSelectorInput extends PureComponent<Props> {
   static contextTypes = {
     l10n: LocalizationContextType
   };
+
+  constructor(props: Props) {
+    super(props);
+
+    this.searchRemoteContacts = debounce(this.searchRemoteContacts, 300);
+  }
 
   componentDidMount() {
     this.autoFocus();
@@ -35,12 +45,23 @@ class ContactSelectorInput extends PureComponent<Props> {
   };
 
   handleChange = (event: $FlowIssue): void => {
-    this.props.onChange(this.props.selector.setQuery(event.target.value));
+    if (this.props.isRemoteSearch) {
+      const query = event.target.value;
+      this.props.setQuery(query);
+      this.searchRemoteContacts(query);
+    } else {
+      this.props.onChange(this.props.selector.setQuery(event.target.value));
+    }
   };
 
   handleKeyDown = (event: SyntheticKeyboardEvent<>): void => {
-    this.props.onChange(this.props.selector.handleKeyboardEvent(event));
+    let nextSelector = this.props.selector;
+    if (this.props.isRemoteSearch) {
+      nextSelector = this.props.selector.setQuery(this.props.query);
+    }
+    this.props.onChange(nextSelector.handleKeyboardEvent(event));
   };
+
 
   getPlaceholder(): string {
     return this.context.l10n.formatText('ContactSelector.search_placeholder');
@@ -48,6 +69,10 @@ class ContactSelectorInput extends PureComponent<Props> {
 
   setInput = (input: ?HTMLInputElement): void => {
     this.input = input;
+  };
+
+  searchRemoteContacts = (query: string): void => {
+    this.props.updateRemotePeersInSelector(this.props.selector, query);
   };
 
   autoFocus(): void {
@@ -66,6 +91,7 @@ class ContactSelectorInput extends PureComponent<Props> {
 
   render() {
     const className = classNames(styles.selector, this.props.className);
+    const value = this.props.isRemoteSearch ? this.props.query : this.props.selector.getQuery();
 
     return (
       <div className={className}>
@@ -75,7 +101,7 @@ class ContactSelectorInput extends PureComponent<Props> {
           className={styles.input}
           type="text"
           id="contact_selector_input"
-          value={this.props.selector.getQuery()}
+          value={value}
           placeholder={this.getPlaceholder()}
           onBlur={this.handleBlur}
           onChange={this.handleChange}

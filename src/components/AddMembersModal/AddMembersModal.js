@@ -26,7 +26,12 @@ export type Props = {
   autoFocus: boolean,
   onClose: () => mixed,
   onSubmit: (gid: number, uids: number[]) => mixed,
-  onChange: (selector: SelectorState<PeerInfo>) => mixed
+  onChange: (selector: SelectorState<PeerInfo>) => mixed,
+  updateRemotePeersInSelector?: (selector: SelectorState<PeerInfo>, query: string) => mixed,
+  setQuery?: (query: string)=> mixed,
+  query?: string,
+  isRemoteSearch?: boolean
+
 };
 
 class AddMembersModal extends PureComponent<Props> {
@@ -67,6 +72,10 @@ class AddMembersModal extends PureComponent<Props> {
               autoFocus={this.props.autoFocus}
               selector={this.props.selector}
               onChange={this.props.onChange}
+              updateRemotePeersInSelector={this.props.updateRemotePeersInSelector}
+              setQuery={this.props.setQuery}
+              query={this.props.query}
+              isRemoteSearch={this.props.isRemoteSearch}
             />
           </ModalBody>
           <ModalFooter className={styles.footer}>
